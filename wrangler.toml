@@ -1,0 +1,15 @@
+name = "dist-distributor"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "dist"
+
+[[routes]]
+pattern = "dist.misaka.org"
+custom_domain = true
+
+[[routes]]
+pattern = "get-dglab-bridge.dist.misaka.org"
+custom_domain = true
