@@ -2,6 +2,9 @@ name = "dist-distributor"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
 
+[assets]
+directory = "./public"
+
 [[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "dist"
