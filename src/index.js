@@ -73,10 +73,11 @@ function escapeHtml(str) {
 }
 
 function getFileBadge(key) {
-  if (/\/rc\.\d+\/.*\.exe$/i.test(key)) {
+  const filename = key.split('/').pop() ?? key;
+  if (/rc\.\d+.*\.exe$/i.test(filename)) {
     return '<span class="badge badge-dev">开发版</span>';
   }
-  if (/\.exe$/i.test(key)) {
+  if (/\.exe$/i.test(filename)) {
     return '<span class="badge badge-stable">稳定版</span>';
   }
   return '';
@@ -85,11 +86,11 @@ function getFileBadge(key) {
 const CHAT_BUBBLE_HTML_OPTIONS = [
   `
 <p>你知道吗？</p>
-<small>开发版比稳定版稳定</small>
+<div>开发版比稳定版稳定</div>
 `,
   `
 <p>你知道吗？</p>
-<small>本软件的开发过程中没有舰长受到伤害。</small>
+<div>本软件的开发过程中没有舰长受到伤害。</div>
 `,
   `
 <p>你知道吗？</p>
@@ -97,19 +98,19 @@ const CHAT_BUBBLE_HTML_OPTIONS = [
 `,
   `
 <p>你知道吗？</p>
-<small>目前软件没多少用户所以遇到问题可以直接 b 站私信问，后面会出个文档站</small>
+<div>目前软件没多少用户所以遇到问题可以直接 b 站私信问，后面会出个文档站</div>
   `,
   `
 <p>你知道吗？</p>
-<small>牢叹打赢复活赛啦</small>
+<div>牢叹打赢复活赛啦</div>
   `,
   `
 <p>你知道吗？</p>
-<small>作者是高仿号，不要找到正主那里去了，看清粉丝数，作者没粉丝</small>
+<div>作者是高仿号，不要找到正主那里去了，看清粉丝数，作者没粉丝</div>
   `,
   `
 <p>你知道吗？</p>
-<small>晚八点是因为正主被称为韵律早八点，而牢叹之前一般晚上 8 点下拨</small>
+<div>晚八点是因为正主被称为韵律早八点，而牢叹之前一般晚上 8 点下拨</div>
   `,
 ];
 
@@ -135,7 +136,7 @@ function renderPage(prefix, folders, files) {
       const name = obj.key.slice(prefix.length);
       const badge = getFileBadge(obj.key);
       return `<tr>
-        <td><a class="file-link" href="/download?key=${encodeURIComponent(obj.key)}"><span>📄 ${escapeHtml(name)}</span>${badge}</a></td>
+        <td><a class="file-link" href="/download?key=${encodeURIComponent(obj.key)}"><span>📄</span>${badge}<span>${escapeHtml(name)}</span></a></td>
         <td>${formatSize(obj.size)}</td>
         <td>${formatDate(obj.uploaded)}</td>
       </tr>`;
@@ -157,11 +158,11 @@ function renderPage(prefix, folders, files) {
     .hero { display: flex; align-items: flex-start; gap: 26px; margin: 18px 0 24px; }
     .avatar-frame { width: 72px; height: 72px; border-radius: 50%; flex: 0 0 auto; border: 2px solid #66ccff; padding: 2px; box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.18), 0 6px 18px rgba(0, 0, 0, 0.28); background: rgba(255, 255, 255, 0.2); overflow: hidden; }
     .avatar { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; filter: brightness(1.2); }
-    .bubble { position: relative; display: flex; flex-direction: column; flex: 1 1 auto; max-width: min(720px, calc(100vw - 154px)); margin-top: 8px; padding: 16px 18px; border-radius: 18px; background: #242424; border: 1px solid #363636; color: #eaeaea; line-height: 1.65; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18); }
+    .bubble { position: relative; display: flex; flex-direction: column; flex: 1 1 auto; width: 100%; margin-top: 8px; padding: 16px 18px; border-radius: 18px; background: #242424; border: 1px solid #363636; color: #eaeaea; line-height: 1.65; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18); }
     .bubble::before { content: ''; position: absolute; left: -9px; top: 20px; width: 18px; height: 18px; background: #242424; border-left: 1px solid #363636; border-bottom: 1px solid #363636; transform: rotate(45deg); }
-    .bubble-content { min-height: 78px; }
-    .bubble p { margin: 0; }
-    .bubble p + p { margin-top: 0.75em; }
+    .bubble-content { min-height: 80px; }
+    .bubble p { margin: 0; font-weight: bold; }
+    .bubble-content small, .bubble-content div { color: #eee; }
     .bubble-nav { display: inline-flex; align-items: center; gap: 8px; align-self: flex-end; margin-top: 14px; font-size: 0.75rem; }
     .bubble-nav button { appearance: none; border: 1px solid #4a4a4a; background: #1e1e1e; color: #d9d9d9; border-radius: 999px; min-width: 28px; height: 28px; padding: 0 8px; cursor: pointer; font: inherit; }
     .bubble-nav button:hover { background: #2a2a2a; border-color: #66ccff; }
@@ -177,7 +178,7 @@ function renderPage(prefix, folders, files) {
     .file-link { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .badge { display: inline-block; padding: 2px 6px; border-radius: 999px; font-size: 0.75rem; line-height: 1.4; }
     .badge-dev { background: #473000; color: #ffbf47; border: 1px solid #7a5600; }
-    .badge-stable { background: #0f3321; color: #6dd59c; border: 1px solid #215c3f; }
+    .badge-stable { background: #2a2a2a; color: #d7d7d7; border: 1px solid #4a4a4a; }
     tr:hover td { background: #242424; }
     a { color: #7aadff; text-decoration: none; }
     a:hover { text-decoration: underline; }
