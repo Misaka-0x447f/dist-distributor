@@ -98,20 +98,16 @@ const CHAT_BUBBLE_HTML_OPTIONS = [
 `,
   `
 <p>你知道吗？</p>
-<div>目前软件没多少用户所以遇到问题可以直接 b 站私信问，后面会出个文档站</div>
-  `,
-  `
-<p>你知道吗？</p>
 <div>牢叹打赢复活赛啦</div>
-  `,
+`,
   `
 <p>你知道吗？</p>
-<div>作者是高仿号，不要找到正主那里去了，看清粉丝数，作者没粉丝</div>
-  `,
+<div>作者是高仿号，不要找到正主那里去了，看清粉丝数，作者没粉丝，韵律源点、韵律原点、韵律远点、韵律饭点、韵律奇点、韵律不点、韵律喵点、韵律寄点、韵律准点、韵律没点、韵律厵点、韵律断点、韵律耐点、韵律鸽点、韵律屁点、韵律援点、韵律来点、韵律轻点、韵律熔点、韵律沸点、韵律速点、韵律草点、韵律爬点、韵律您点、韵律早八点、韵律拉格朗日点都不是作者。</div>
+`,
   `
 <p>你知道吗？</p>
 <div>晚八点是因为正主被称为韵律早八点，而牢叹之前一般晚上 8 点下拨</div>
-  `,
+`,
 ];
 
 function getInitialChatBubbleIndex() {
@@ -153,8 +149,10 @@ function renderPage(prefix, folders, files) {
   <style>
     * { box-sizing: border-box; }
     body { font-family: Hack, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', 'DejaVu Sans', 'Liberation Sans', 'WenQuanYi Micro Hei', 'Droid Sans Fallback', ui-monospace, monospace; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #eee; background: #1a1a1a; }
-    h1 { font-size: 1.2rem; color: #aaa; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: baseline; }
-    h1 small { font-size: 0.8rem; color: #fb0; }
+    h1 { font-size: 1.2rem; color: #aaa; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+    .title-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    h1 small { font-size: 0.8rem; color: #fb0; text-align: right; }
+    .help-topic-link { font-size: 0.8rem; color: #7aadff; }
     .hero { display: flex; align-items: flex-start; gap: 26px; margin: 18px 0 24px; }
     .avatar-frame { width: 72px; height: 72px; border-radius: 50%; flex: 0 0 auto; border: 2px solid #66ccff; padding: 2px; box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.18), 0 6px 18px rgba(0, 0, 0, 0.28); background: rgba(255, 255, 255, 0.2); overflow: hidden; }
     .avatar { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; filter: brightness(1.2); }
@@ -199,7 +197,13 @@ function renderPage(prefix, folders, files) {
       </div>
     </div>
   </section>
-  <h1><span>韵律晚八点 Arcaea / dist</span><small>所有软件免费提供，严禁倒卖，如果你是买的请找卖家退款</small></h1>
+  <h1>
+    <span>韵律晚八点 Arcaea / dist</span>
+    <span class="title-meta">
+      <small>所有软件免费提供，严禁倒卖，如果你是买的请找卖家退款</small>
+      <a class="help-topic-link" href="https://dglab-bridge.misaka.org" target="_blank" rel="noopener noreferrer">帮助主题 &gt;</a>
+    </span>
+  </h1>
   <div class="breadcrumb">${renderBreadcrumb(prefix)}</div>
   <table>
     <thead>
